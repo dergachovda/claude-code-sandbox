@@ -2,7 +2,9 @@ FROM node:22-bookworm-slim
 
 # System deps
 RUN apt-get update && apt-get install -y \
-    git curl sudo \
+    git \
+    curl \
+    sudo \
     && rm -rf /var/lib/apt/lists/*
 
 # Non-root user (node:bookworm already has uid/gid 1000 as "node", rename it)
