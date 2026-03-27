@@ -6,10 +6,11 @@
   "runArgs": [
     "--env-file", "${localWorkspaceFolder}/.env"
   ],
-  // Named volume so Claude settings/sessions persist across container rebuilds.
-  // To start fresh: docker volume rm claude-code-sandbox-claude-data
+  // Bind-mount ./data as the home dir — persists Claude config, settings, shell history, and
+  // dotfiles as plain files in your repo folder (easy to inspect, backup, or wipe).
+  // To start fresh: rm -rf ./data
   "mounts": [
-    "source=claude-code-sandbox-claude-data,target=/home/claude/.claude,type=volume"
+    "source=${localWorkspaceFolder}/data,target=/home/claude,type=bind,consistency=cached"
   ],
   "remoteUser": "claude",
   "customizations": {
@@ -25,5 +26,6 @@
       }
     }
   },
-  "postCreateCommand": "echo '✅ Claude Code ready:' && claude --version"
+  // Seed home dir from the image on first create (bind-mount starts empty)
+  "postCreateCommand": "([ -f ~/.zshrc ] || cp -a /opt/home-seed/. ~/) && echo '✅ Claude Code ready:' && claude --version"
 }

@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Build image**: `docker build -t claude-code-sandbox .devcontainer/`
 - **Open in dev container**: Reopen in Container via VS Code command palette (`Dev Containers: Reopen in Container`)
 - **Rebuild container**: VS Code command palette → `Dev Containers: Rebuild Container`
-- **Reset Claude data**: run `./cleanup_claude.sh` inside the container, or from the host: `docker volume rm claude-code-sandbox-claude-data`
+- **Reset Claude data**: delete the `./data` folder and rebuild — `rm -rf data/`
 
 ### Environment
 - **Set API key**: `export ANTHROPIC_API_KEY=sk-or-v1-your-key-here`
@@ -32,4 +32,4 @@ The repository uses a Docker-based development environment configured in `.devco
 - The container uses a non-root user (`claude`) with sudo privileges
 - Oh-My-Zsh is pre-configured for a better shell experience
 - All development dependencies are installed via the Dockerfile
-- Claude settings and shell history persist across rebuilds via the `claude-code-sandbox-claude-data` named volume (`~/.claude/.zsh_history`)
+- Claude settings and shell history persist in the `./data/` folder (bind-mounted as `/home/claude`)
