@@ -6,6 +6,11 @@
   "runArgs": [
     "--env-file", "${localWorkspaceFolder}/.env"
   ],
+  // Named volume so Claude settings/sessions persist across container rebuilds.
+  // To start fresh: docker volume rm claude-code-sandbox-claude-data
+  "mounts": [
+    "source=claude-code-sandbox-claude-data,target=/home/claude/.claude,type=volume"
+  ],
   "remoteUser": "claude",
   "customizations": {
     "vscode": {

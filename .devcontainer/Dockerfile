@@ -5,10 +5,10 @@ RUN apt-get update && apt-get install -y \
     zsh git curl sudo \
     && rm -rf /var/lib/apt/lists/*
 
-# Non-root user
+# Non-root user (node:bookworm already has uid/gid 1000 as "node", rename it)
 ARG USERNAME=claude
-RUN groupadd --gid 1000 $USERNAME \
-    && useradd --uid 1000 --gid 1000 -m -s /bin/zsh $USERNAME \
+RUN groupmod -n $USERNAME node \
+    && usermod -l $USERNAME -s /bin/zsh -m -d /home/$USERNAME node \
     && echo "$USERNAME ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 
