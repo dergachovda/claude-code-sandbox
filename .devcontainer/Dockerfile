@@ -12,7 +12,7 @@ RUN groupmod -n $USERNAME node \
     && echo "$USERNAME ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 
-# Claude Code CLI (глобально, поки root)
+# Claude Code CLI
 RUN npm install -g @anthropic-ai/claude-code
 
 USER $USERNAME
@@ -20,7 +20,6 @@ USER $USERNAME
 # Oh-my-zsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
-# OpenRouter env-и в .zshrc як fallback
 RUN cat >> /home/$USERNAME/.zshrc << 'EOF'
 
 # Claude Code / OpenRouter
