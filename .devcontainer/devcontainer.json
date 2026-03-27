@@ -19,13 +19,13 @@
         "anthropic.claude-code"
       ],
       "settings": {
-        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.defaultProfile.linux": "bash",
         "terminal.integrated.profiles.linux": {
-          "zsh": { "path": "/bin/zsh" }
+          "bash": { "path": "/bin/bash" }
         }
       }
     }
   },
   // Seed home dir from the image on first create (bind-mount starts empty)
-  "postCreateCommand": "([ -f ~/.zshrc ] || cp -a /opt/home-seed/. ~/) && echo '✅ Claude Code ready:' && claude --version"
+  "postCreateCommand": "([ -f ~/.bashrc ] || cp -a /opt/home-seed/. ~/) && echo '✅ Claude Code ready:' && claude --version"
 }
