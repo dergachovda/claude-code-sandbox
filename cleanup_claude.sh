@@ -1,7 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 # Configuration
 CLAUDE_DIR="$HOME/.claude"
+
+# NOTE: Claude settings are stored in a named Docker volume (claude-code-sandbox-claude-data).
+# This script removes the directory contents inside the running container, which wipes the volume.
+# Alternatively, from the HOST machine run: docker volume rm claude-code-sandbox-claude-data
 
 # Display warning and confirmation
 echo "WARNING: This script will remove all Claude Code settings and persistent data"
