@@ -1,11 +1,12 @@
-FROM node:22-bookworm-slim
+FROM node:lts-alpine
 
 # System deps
-RUN apt-get update && apt-get install -y \
+RUN apk add --no-cache \
     git \
     curl \
     sudo \
-    && rm -rf /var/lib/apt/lists/*
+    bash \
+    shadow
 
 # Non-root user (node:bookworm already has uid/gid 1000 as "node", rename it)
 ARG USERNAME=claude
