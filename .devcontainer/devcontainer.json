@@ -6,12 +6,10 @@
   "runArgs": [
     "--env-file", "${localWorkspaceFolder}/.env"
   ],
-  // Bind-mount ./data as the home dir — persists Claude config, settings, shell history, and
-  // dotfiles as plain files in your repo folder (easy to inspect, backup, or wipe).
-  // To start fresh: rm -rf ./data
-  "mounts": [
-    "source=${localWorkspaceFolder}/data,target=/home/claude,type=bind,consistency=cached"
-  ],
+  // Bind-mount ./workspace as the container's working directory.
+  // Clone projects here and work on them with Claude Code.
+  "workspaceMount": "source=${localWorkspaceFolder}/workspace,target=/workspace,type=bind,consistency=cached",
+  "workspaceFolder": "/workspace",
   "remoteUser": "claude",
   "customizations": {
     "vscode": {
@@ -26,6 +24,5 @@
       }
     }
   },
-  // Seed home dir from the image on first create (bind-mount starts empty)
-  "postCreateCommand": "([ -f ~/.bashrc ] || cp -a /opt/home-seed/. ~/) && echo '✅ Claude Code ready:' && claude --version"
+  "postCreateCommand": "echo '✅ Claude Code ready:' && claude --version"
 }

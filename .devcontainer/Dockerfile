@@ -33,10 +33,4 @@ export HISTSIZE=10000
 export HISTFILESIZE=10000
 EOF
 
-# Store a seed copy of the home dir so postCreateCommand can initialize an empty bind-mount
-USER root
-RUN cp -a /home/${USERNAME}/. /opt/home-seed/ \
-    && chown -R root:root /opt/home-seed
-USER $USERNAME
-
 WORKDIR /workspace
