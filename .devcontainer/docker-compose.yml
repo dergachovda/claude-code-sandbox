@@ -1,0 +1,13 @@
+services:
+  claude-sandbox:
+    hostname: claude-sandbox
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - ../.env
+    volumes:
+      - ../workspace:/workspace:cached
+    working_dir: /workspace
+    stdin_open: true
+    tty: true

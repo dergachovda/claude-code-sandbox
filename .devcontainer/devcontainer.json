@@ -1,14 +1,9 @@
 {
   "name": "Claude Code Sandbox",
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
-  "runArgs": [
-    "--env-file", "${localWorkspaceFolder}/.env"
-  ],
-  // Bind-mount ./workspace as the container's working directory.
-  // Clone projects here and work on them with Claude Code.
-  "workspaceMount": "source=${localWorkspaceFolder}/workspace,target=/workspace,type=bind,consistency=cached",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "claude-sandbox",
+  "shutdownAction": "stopCompose",
+  // workspaceFolder and volume mount are defined in docker-compose.yml
   "workspaceFolder": "/workspace",
   "remoteUser": "claude",
   "customizations": {
@@ -24,5 +19,6 @@
       }
     }
   },
-  "postCreateCommand": "echo '✅ Claude Code ready:' && claude --version"
+  "postCreateCommand": "post-create.sh",
+  "postStartCommand": "post-start.sh"
 }
